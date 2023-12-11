@@ -13,7 +13,16 @@ class Events extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->date('date')->nullable();
+            $table->string('location');
+            $table->string('ticket_price');
+            $table->string('tickets_count');
+            $table->timestamps();
+        });
     }
 
     /**

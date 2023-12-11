@@ -9,4 +9,12 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    function event(){
+        return $this->belongsTo(Event::class);
+    }
 }

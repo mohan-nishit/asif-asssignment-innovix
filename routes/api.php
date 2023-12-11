@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+
+Route::group([
+    
+    'prefix' => 'user'
+
+], function () {
+    Route::post('register', [UserController::class,'register']);
+    Route::post('login', [UserController::class, 'login'])->name('login');
+    
+
+});
+
+Route::group([
+
+    'middleware' => ['auth.jwt'],
+    'prefix' => 'event'
+
+], function () {
+
+    Route::get('list',  [EventController::class,'list']);
+    Route::get('details/{event_id}',  [EventController::class,'details']);
+    Route::get('book/{event_id}',  [EventController::class,'book']);
+    Route::get('order',  [EventController::class,'orderList']);
+
+
 });
